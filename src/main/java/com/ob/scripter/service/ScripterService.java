@@ -18,6 +18,8 @@ public class ScripterService {
 	private StringWriter stringWriter;
 	
 	public String eval(String script) {
+		//TODO threading in progress
+		thread = Thread.currentThread();
 		stringWriter = new StringWriter();
 		engine.getContext().setWriter(stringWriter);
         try {
@@ -29,8 +31,11 @@ public class ScripterService {
 	}
 
 	public String stop() {
-		// TODO
-		return "script stopped";
+		if (thread.isAlive()) {
+			thread.stop();
+			return "script stopped";
+		}
+		return "nothing to stop";
 	}
 
 	public String status() {

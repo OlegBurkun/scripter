@@ -31,7 +31,7 @@ public class ScripterController {
 		DeferredResult<String> result = new DeferredResult<>();
 		Runnable runnable = () -> {
 			try {
-				scripterrService.eval(script);
+				result.setResult(scripterrService.eval(script));
 			} catch (Exception e) {
 				result.setErrorResult(new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR));
 			}
