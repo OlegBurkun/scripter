@@ -13,6 +13,8 @@ public class ScripterService {
 	
 	final private ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
 	
+	private Thread thread;
+	
 	private StringWriter stringWriter;
 	
 	public String eval(String script) {
@@ -21,9 +23,18 @@ public class ScripterService {
         try {
             engine.eval(script);
         }catch (ScriptException e) {
-            return "ScriptException "+e.getMessage();
+            return "ScriptException " + e.getMessage();
         }
         return stringWriter.toString();
+	}
+
+	public String stop() {
+		// TODO
+		return "script stopped";
+	}
+
+	public String status() {
+		return thread.isAlive() ? "script working" : "the server is free";
 	}
 
 }

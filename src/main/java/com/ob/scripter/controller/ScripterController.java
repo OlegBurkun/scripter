@@ -27,7 +27,7 @@ public class ScripterController {
 	private ScripterService scripterrService;
 	
 	@RequestMapping(value = "/eval", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-    public DeferredResult<String> evalScript(@RequestBody String script, HttpServletResponse response) {
+	public DeferredResult<String> evalScript(@RequestBody String script, HttpServletResponse response) {
 		DeferredResult<String> result = new DeferredResult<>();
 		Runnable runnable = () -> {
 			try {
@@ -40,5 +40,14 @@ public class ScripterController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/stop", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	public String stopScript() {
+		return scripterrService.stop();
+	}
+	
+	@RequestMapping(value = "/status", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	public String scriptStatus() {
+		return scripterrService.status();
+	}
 
 }
